@@ -90,6 +90,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+      image-rendering: auto;
     }
 
     .container {
@@ -161,7 +162,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
-      background: var(--green-deep);
+      background: var(--bg-soft);
       min-height: 680px;
       aspect-ratio: 3 / 4;
       touch-action: pan-y;
@@ -196,9 +197,9 @@
       inset: 0;
       background: linear-gradient(
         to top,
-        rgba(12, 29, 21, 0.9) 0%,
-        rgba(12, 29, 21, 0.35) 48%,
-        rgba(12, 29, 21, 0.08) 100%
+        rgba(12, 29, 21, 0.76) 0%,
+        rgba(12, 29, 21, 0.24) 36%,
+        rgba(12, 29, 21, 0) 68%
       );
       display: flex;
       flex-direction: column;
@@ -211,8 +212,9 @@
       font-size: 0.75rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #d6e8de;
+      color: #e2f0e8;
       margin-bottom: 6px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
     }
 
     .hero-title {
@@ -222,12 +224,14 @@
       line-height: 1.08;
       margin-bottom: 8px;
       max-width: 22ch;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
     }
 
     .hero-body {
       font-size: 0.96rem;
-      color: #eef5f0;
+      color: #f4f9f6;
       max-width: 54ch;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
     }
 
     .hero-controls {
@@ -252,7 +256,7 @@
       height: 10px;
       border-radius: 999px;
       border: none;
-      background: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.5);
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -271,8 +275,8 @@
       width: 38px;
       height: 38px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      background: rgba(20, 51, 38, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: rgba(20, 51, 38, 0.65);
       color: #ffffff;
       font-size: 1rem;
       cursor: pointer;
@@ -516,7 +520,7 @@
           <article class="hero-slide" data-slide-key="hero_1">
             <img
               id="img-hero_1"
-              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
               alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
             />
             <div class="hero-overlay">
@@ -531,7 +535,7 @@
           <article class="hero-slide" data-slide-key="hero_2">
             <img
               id="img-hero_2"
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
               alt="Lawar sapi segar dengan bumbu rempah Bali di Wr Rahayu"
             />
             <div class="hero-overlay">
@@ -546,7 +550,7 @@
           <article class="hero-slide" data-slide-key="hero_3">
             <img
               id="img-hero_3"
-              src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
               alt="Soto sapi kuah gurih hangat di Wr Rahayu Denpasar"
             />
             <div class="hero-overlay">
@@ -598,7 +602,7 @@
             <div class="menu-photo">
               <img
                 id="img-menu_lawar"
-                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
                 alt="Lawar sapi khas Bali di Wr Rahayu Denpasar"
               />
             </div>
@@ -615,7 +619,7 @@
             <div class="menu-photo">
               <img
                 id="img-menu_soto"
-                src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"
+                src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
                 alt="Soto sapi hangat di Wr Rahayu Denpasar"
               />
             </div>
@@ -639,7 +643,7 @@
             <div class="venue-photo">
               <img
                 id="img-venue_dining"
-                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
                 alt="Ruang makan luas dan nyaman untuk makan siang di Wr Rahayu Denpasar"
               />
             </div>
