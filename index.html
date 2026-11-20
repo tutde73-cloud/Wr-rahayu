@@ -6,24 +6,24 @@
   <title>Wr Rahayu — Lawar &amp; Soto Sapi di Denpasar, Bali</title>
   <meta
     name="description"
-    content="Wr Rahayu di Denpasar, Bali menyajikan lawar sapi dan soto sapi segar dengan ruang makan luas serta jam operasional yang jelas."
+    content="Wr Rahayu di Denpasar, Bali menyajikan lawar sapi dan soto sapi segar dengan lokasi peta dan jam operasional yang jelas."
   />
   <meta
     name="keywords"
-    content="Wr Rahayu, Lawar Sapi Denpasar, Soto Sapi Denpasar, kuliner Bali, makan siang Denpasar, ruang makan luas"
+    content="Wr Rahayu, Lawar Sapi Denpasar, Soto Sapi Denpasar, kuliner Bali, Denpasar"
   />
   <meta property="og:type" content="restaurant" />
   <meta property="og:locale" content="id_ID" />
   <meta property="og:title" content="Wr Rahayu — Lawar &amp; Soto Sapi di Denpasar, Bali" />
   <meta
     property="og:description"
-    content="Nikmati lawar sapi dan soto sapi hangat di Denpasar, Bali dengan ruang makan luas untuk keluarga maupun rombongan."
+    content="Nikmati lawar sapi dan soto sapi hangat di Denpasar, Bali atau pesan melalui layanan antar makanan."
   />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Wr Rahayu — Lawar &amp; Soto Sapi di Denpasar, Bali" />
   <meta
     name="twitter:description"
-    content="Nikmati lawar sapi dan soto sapi hangat di Denpasar, Bali dengan ruang makan luas."
+    content="Nikmati lawar sapi dan soto sapi hangat di Denpasar, Bali."
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -294,7 +294,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
     }
 
     .hero-subnote {
@@ -337,6 +337,50 @@
 
     .btn-secondary:hover {
       background: var(--bg-soft);
+    }
+
+    .order-strip {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .order-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--green-deep);
+    }
+
+    .order-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .order-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: var(--bg-soft);
+      color: var(--green-deep);
+      border: 1px solid #c7d7cd;
+      transition: all 0.18s ease;
+    }
+
+    .order-pill:hover {
+      background: var(--green-forest);
+      color: #ffffff;
+      border-color: var(--green-forest);
     }
 
     /* Sections */
@@ -423,10 +467,10 @@
       color: var(--ink-muted);
     }
 
-    /* Venue & Hours Portrait */
+    /* Location Map & Hours */
     .info-grid {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 24px;
       align-items: start;
     }
@@ -437,7 +481,7 @@
       }
     }
 
-    .venue-card,
+    .map-card,
     .hours-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -445,9 +489,17 @@
       overflow: hidden;
     }
 
-    .venue-photo {
-      aspect-ratio: 3 / 4;
+    .map-frame-wrap {
+      width: 100%;
       background: var(--bg-soft);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .map-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 420px;
+      border: 0;
     }
 
     .card-pad {
@@ -484,12 +536,60 @@
 
     /* Footer */
     .site-footer {
-      margin-top: 56px;
-      padding: 28px 20px 44px;
+      margin-top: 64px;
+      background: var(--bg-card);
       border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 0.85rem;
+      padding: 36px 20px 44px;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 4px;
+    }
+
+    .footer-meta {
+      font-size: 0.86rem;
       color: var(--ink-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--green-forest);
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .footer-bottom {
+      max-width: 1120px;
+      margin: 24px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .hidden-section {
@@ -506,7 +606,7 @@
       </a>
       <nav class="nav-links" aria-label="Navigasi Utama">
         <a href="#menu">Menu Andalan</a>
-        <a href="#ruang-makan">Makan Siang &amp; Ruang</a>
+        <a href="#lokasi">Lokasi</a>
         <a href="#jam-buka">Jam Operasional</a>
       </nav>
     </div>
@@ -521,13 +621,13 @@
             <img
               id="img-hero_1"
               src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
-              alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
+              alt="Hidangan khas Bali di Wr Rahayu Denpasar"
             />
             <div class="hero-overlay">
               <div class="hero-eyebrow" id="eyebrow-hero_1">Denpasar, Bali</div>
               <h1 class="hero-title" id="title-hero_1">Lawar &amp; Soto Sapi Wr Rahayu</h1>
               <p class="hero-body" id="body-hero_1">
-                Racikan rumahan dengan rekam jejak lokal di Denpasar, disiapkan hangat untuk menemani waktu makan siang Anda.
+                Racikan rumahan khas Bali di Denpasar dengan lawar sapi dan soto sapi hangat.
               </p>
             </div>
           </article>
@@ -542,7 +642,7 @@
               <div class="hero-eyebrow" id="eyebrow-hero_2">Menu Andalan</div>
               <h2 class="hero-title" id="title-hero_2">Lawar Sapi Segar Setiap Hari</h2>
               <p class="hero-body" id="body-hero_2">
-                Perpaduan daging sapi pilihan, sayuran segar, kelapa sangrai, dan base genep khas Bali.
+                Perpaduan daging sapi pilihan, sayuran segar, kelapa sangrai, dan bumbu rempah khas Bali.
               </p>
             </div>
           </article>
@@ -557,7 +657,7 @@
               <div class="hero-eyebrow" id="eyebrow-hero_3">Hangat &amp; Gurih</div>
               <h2 class="hero-title" id="title-hero_3">Soto Sapi Berkuah Rempah</h2>
               <p class="hero-body" id="body-hero_3">
-                Kuah kaldu sapi yang ringan namun kaya rasa rempah, pas dinikmati saat makan siang.
+                Kuah kaldu sapi yang gurih dengan aroma rempah yang menyegarkan.
               </p>
             </div>
           </article>
@@ -575,12 +675,21 @@
       <div class="container">
         <div class="hero-cta-bar">
           <p class="hero-subnote">
-            Wr Rahayu Lawar &amp; Soto Sapi — Pilihan nyaman untuk makan siang di Denpasar.
+            Wr Rahayu Lawar &amp; Soto Sapi — Buka Senin–Sabtu, 10.00–17.00 WITA di Denpasar.
           </p>
           <div class="btn-row">
             <a href="#menu" class="btn btn-primary">Lihat Menu</a>
-            <a href="#ruang-makan" class="btn btn-secondary">Ruang Makan Luas</a>
+            <a href="#lokasi" class="btn btn-secondary">Lokasi</a>
             <a href="#jam-buka" class="btn btn-secondary">Jam Buka</a>
+          </div>
+        </div>
+
+        <div class="order-strip" aria-label="Pesan Online Food">
+          <span class="order-label">Pesan Online Food:</span>
+          <div class="order-btns">
+            <a href="#" class="order-pill" target="_blank" rel="noopener">GrabFood</a>
+            <a href="#" class="order-pill" target="_blank" rel="noopener">GoFood</a>
+            <a href="#" class="order-pill" target="_blank" rel="noopener">ShopeeFood</a>
           </div>
         </div>
       </div>
@@ -593,7 +702,7 @@
           <div class="section-eyebrow">Menu Andalan</div>
           <h2 class="section-title">Ciri Khas Lawar &amp; Soto Sapi</h2>
           <p class="section-lead">
-            Dua sajian utama yang menjadi identitas Wr Rahayu di Denpasar, diracik dengan bahan segar dan bumbu tradisional yang konsisten.
+            Sajian utama Wr Rahayu di Denpasar yang diracik dengan bahan segar dan bumbu tradisional.
           </p>
         </div>
 
@@ -627,7 +736,7 @@
               <div class="menu-tag" id="eyebrow-menu_soto">Kuah Hangat</div>
               <h3 class="menu-name" id="title-menu_soto">Soto Sapi</h3>
               <p class="menu-desc" id="body-menu_soto">
-                Disajikan hangat dengan kuah kaldu sapi berbumbu rempah yang menyegarkan untuk makan siang.
+                Disajikan hangat dengan kuah kaldu sapi berbumbu rempah yang gurih dan menyegarkan.
               </p>
             </div>
           </article>
@@ -635,32 +744,48 @@
       </div>
     </section>
 
-    <!-- Makan Siang, Ruang Makan Luas & Jam Operasional -->
-    <section id="ruang-makan" class="content-section">
+    <!-- Lokasi Google Maps & Jam Operasional -->
+    <section id="lokasi" class="content-section">
       <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">Lokasi &amp; Operasional</div>
+          <h2 class="section-title">Peta Lokasi &amp; Jam Buka</h2>
+          <p class="section-lead">
+            Temukan titik Warung Rahayu di Google Maps atau pesan langsung lewat aplikasi antar makanan.
+          </p>
+        </div>
+
         <div class="info-grid">
-          <article class="venue-card" id="card-venue_dining">
-            <div class="venue-photo">
-              <img
-                id="img-venue_dining"
-                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
-                alt="Ruang makan luas dan nyaman untuk makan siang di Wr Rahayu Denpasar"
-              />
+          <article class="map-card" id="card-venue_dining">
+            <div class="map-frame-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15777.585671246068!2d115.2372669653136!3d-8.65379514879654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2408985d142c9%3A0x93e2ed18a1c8d755!2sWarung%20Rahayu%20-%20Nasi%20Lawar%20%26%20Soto%20Sapi!5e0!3m2!1sen!2sid!4v1795218591467!5m2!1sen!2sid"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Peta Lokasi Warung Rahayu - Nasi Lawar & Soto Sapi"
+              ></iframe>
             </div>
             <div class="card-pad">
-              <div class="section-eyebrow" id="eyebrow-venue_dining">Makan Siang &amp; Ruang</div>
-              <h2 class="section-title" id="title-venue_dining">Suasana Makan Siang &amp; Ruang Makan Luas</h2>
+              <div class="section-eyebrow" id="eyebrow-venue_dining">Alamat &amp; Pemesanan</div>
+              <h3 class="section-title" id="title-venue_dining">Warung Rahayu — Nasi Lawar &amp; Soto Sapi</h3>
               <p class="section-lead" id="body-venue_dining">
-                Area makan yang lega dan tertata nyaman sehingga cocok untuk makan siang santai bersama keluarga, rekan kerja, maupun rombongan.
+                Denpasar, Bali. Tersedia juga layanan pesan antar online untuk memudahkan pemesanan dari rumah atau kantor.
               </p>
 
               <div class="info-box-list">
                 <div class="info-box">
-                  <div class="info-box-label" id="extra1-label-venue_dining">Area Makan</div>
-                  <div class="info-box-val" id="extra1-val-venue_dining">Ruang makan luas &amp; nyaman untuk makan siang</div>
+                  <div class="info-box-label" id="extra1-label-venue_dining">Order Online Food</div>
+                  <div class="info-box-val" id="extra1-val-venue_dining">
+                    <div class="order-btns" style="margin-top: 6px;">
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">GrabFood</a>
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">GoFood</a>
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">ShopeeFood</a>
+                    </div>
+                  </div>
                 </div>
                 <div class="info-box">
-                  <div class="info-box-label" id="extra2-label-venue_dining">Lokasi</div>
+                  <div class="info-box-label" id="extra2-label-venue_dining">Kawasan</div>
                   <div class="info-box-val" id="extra2-val-venue_dining">Denpasar, Bali</div>
                 </div>
               </div>
@@ -670,19 +795,19 @@
           <aside class="hours-card" id="jam-buka">
             <div class="card-pad">
               <div class="section-eyebrow" id="eyebrow-opening_hours">Jam Operasional</div>
-              <h2 class="section-title" id="title-opening_hours">Waktu Layanan</h2>
+              <h3 class="section-title" id="title-opening_hours">Waktu Layanan</h3>
               <p class="section-lead" id="body-opening_hours">
-                Silakan periksa jadwal operasional berikut sebelum berkunjung untuk makan siang di Wr Rahayu.
+                Jadwal operasional Warung Rahayu berlaku setiap minggu.
               </p>
 
               <div class="info-box-list">
                 <div class="info-box">
-                  <div class="info-box-label" id="extra1-label-opening_hours">Hari &amp; Jam Buka</div>
-                  <div class="info-box-val" id="extra1-val-opening_hours">Setiap Hari · 09.00 – 16.00 WITA</div>
+                  <div class="info-box-label" id="extra1-label-opening_hours">Senin – Sabtu</div>
+                  <div class="info-box-val" id="extra1-val-opening_hours">10.00 – 17.00 WITA</div>
                 </div>
                 <div class="info-box">
-                  <div class="info-box-label" id="extra2-label-opening_hours">Catatan Layanan</div>
-                  <div class="info-box-val" id="extra2-val-opening_hours">Melayani makan di tempat selama persediaan masih ada</div>
+                  <div class="info-box-label" id="extra2-label-opening_hours">Minggu</div>
+                  <div class="info-box-val" id="extra2-val-opening_hours">Tutup</div>
                 </div>
               </div>
             </div>
@@ -693,8 +818,22 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>Wr Rahayu — Lawar &amp; Soto Sapi · Denpasar, Bali</p>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Wr Rahayu</div>
+        <p class="footer-meta">Lawar &amp; Soto Sapi · Denpasar, Bali</p>
+        <p class="footer-meta">Senin–Sabtu: 10.00 – 17.00 WITA · Minggu: Tutup</p>
+      </div>
+      <nav class="footer-links" aria-label="Navigasi Footer">
+        <a href="#top">Beranda</a>
+        <a href="#menu">Menu Andalan</a>
+        <a href="#lokasi">Lokasi</a>
+        <a href="#jam-buka">Jam Operasional</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Wr Rahayu Lawar &amp; Soto Sapi</span>
+      <span>Denpasar, Bali</span>
     </div>
   </footer>
 
@@ -808,8 +947,12 @@
         setText(`eyebrow-${key}`, row.eyebrow);
         setText(`title-${key}`, row.title);
         setText(`body-${key}`, row.body);
+
+        // Pertahankan tombol order online food di extra1-val-venue_dining
+        if (key !== 'venue_dining') {
+          setText(`extra1-val-${key}`, row.extra_1_value);
+        }
         setText(`extra1-label-${key}`, row.extra_1_label);
-        setText(`extra1-val-${key}`, row.extra_1_value);
         setText(`extra2-label-${key}`, row.extra_2_label);
         setText(`extra2-val-${key}`, row.extra_2_value);
 
@@ -830,7 +973,7 @@
         }
 
         const cardEl = document.getElementById(`card-${key}`);
-        if (cardEl) {
+        if (cardEl && key !== 'venue_dining') {
           cardEl.classList.toggle('hidden-section', !isActive);
         }
       }
