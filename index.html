@@ -76,6 +76,7 @@
       color: var(--ink);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.65;
+      overflow-x: hidden;
     }
 
     a {
@@ -99,7 +100,7 @@
 
     /* Header */
     .site-header {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -150,47 +151,44 @@
       text-underline-offset: 4px;
     }
 
-    /* Hero Full Lebar & Tinggi Portrait */
+    /* Hero Full Tepi-ke-Tepi, Portrait ke Bawah & Horizontal Track */
     .hero-section {
-      padding: 24px 0 12px;
+      padding: 0 0 12px;
+      width: 100%;
     }
 
     .hero-frame {
       position: relative;
       width: 100%;
-      border-radius: 20px;
       overflow: hidden;
       background: var(--green-deep);
-      border: 1px solid var(--border);
-      min-height: 620px;
-      aspect-ratio: 4 / 5;
+      min-height: 680px;
+      aspect-ratio: 3 / 4;
+      touch-action: pan-y;
     }
 
     @media (min-width: 900px) {
       .hero-frame {
-        min-height: 760px;
-        aspect-ratio: 6 / 5;
+        min-height: 780px;
+        aspect-ratio: 4 / 3;
       }
     }
 
-    .hero-slides {
-      position: relative;
+    .hero-track {
+      display: flex;
       width: 100%;
       height: 100%;
       min-height: inherit;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
 
     .hero-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.45s ease;
-      pointer-events: none;
-    }
-
-    .hero-slide.active {
-      opacity: 1;
-      pointer-events: auto;
+      position: relative;
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
     }
 
     .hero-overlay {
@@ -198,14 +196,14 @@
       inset: 0;
       background: linear-gradient(
         to top,
-        rgba(12, 29, 21, 0.88) 0%,
-        rgba(12, 29, 21, 0.34) 48%,
+        rgba(12, 29, 21, 0.9) 0%,
+        rgba(12, 29, 21, 0.35) 48%,
         rgba(12, 29, 21, 0.08) 100%
       );
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 28px 26px 72px;
+      padding: 28px 24px 76px;
       color: #ffffff;
     }
 
@@ -219,7 +217,7 @@
 
     .hero-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(2.1rem, 5vw, 3.3rem);
+      font-size: clamp(2.15rem, 5.2vw, 3.4rem);
       font-weight: 600;
       line-height: 1.08;
       margin-bottom: 8px;
@@ -229,7 +227,7 @@
     .hero-body {
       font-size: 0.96rem;
       color: #eef5f0;
-      max-width: 52ch;
+      max-width: 54ch;
     }
 
     .hero-controls {
@@ -287,7 +285,7 @@
     }
 
     .hero-cta-bar {
-      margin-top: 16px;
+      margin-top: 18px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -511,66 +509,66 @@
   </header>
 
   <main id="top">
-    <!-- Galeri Utama -->
+    <!-- Galeri Utama Full Lebar & Auto-Scroll ke Samping -->
     <section class="hero-section">
-      <div class="container">
-        <div class="hero-frame">
-          <div class="hero-slides" id="heroSlides">
-            <article class="hero-slide active" data-slide-key="hero_1">
-              <img
-                id="img-hero_1"
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
-                alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
-              />
-              <div class="hero-overlay">
-                <div class="hero-eyebrow" id="eyebrow-hero_1">Denpasar, Bali</div>
-                <h1 class="hero-title" id="title-hero_1">Lawar &amp; Soto Sapi Wr Rahayu</h1>
-                <p class="hero-body" id="body-hero_1">
-                  Racikan rumahan dengan rekam jejak lokal di Denpasar, disiapkan hangat untuk menemani waktu makan siang Anda.
-                </p>
-              </div>
-            </article>
-
-            <article class="hero-slide" data-slide-key="hero_2">
-              <img
-                id="img-hero_2"
-                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
-                alt="Lawar sapi segar dengan bumbu rempah Bali di Wr Rahayu"
-              />
-              <div class="hero-overlay">
-                <div class="hero-eyebrow" id="eyebrow-hero_2">Menu Andalan</div>
-                <h2 class="hero-title" id="title-hero_2">Lawar Sapi Segar Setiap Hari</h2>
-                <p class="hero-body" id="body-hero_2">
-                  Perpaduan daging sapi pilihan, sayuran segar, kelapa sangrai, dan base genep khas Bali.
-                </p>
-              </div>
-            </article>
-
-            <article class="hero-slide" data-slide-key="hero_3">
-              <img
-                id="img-hero_3"
-                src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
-                alt="Soto sapi kuah gurih hangat di Wr Rahayu Denpasar"
-              />
-              <div class="hero-overlay">
-                <div class="hero-eyebrow" id="eyebrow-hero_3">Hangat &amp; Gurih</div>
-                <h2 class="hero-title" id="title-hero_3">Soto Sapi Berkuah Rempah</h2>
-                <p class="hero-body" id="body-hero_3">
-                  Kuah kaldu sapi yang ringan namun kaya rasa rempah, pas dinikmati saat makan siang.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <div class="hero-controls">
-            <div class="hero-dots" id="heroDots" aria-label="Pilih slide"></div>
-            <div class="hero-arrows">
-              <button type="button" class="arrow-btn" id="prevSlide" aria-label="Slide sebelumnya">&#8592;</button>
-              <button type="button" class="arrow-btn" id="nextSlide" aria-label="Slide berikutnya">&#8594;</button>
+      <div class="hero-frame" id="heroFrame">
+        <div class="hero-track" id="heroTrack">
+          <article class="hero-slide" data-slide-key="hero_1">
+            <img
+              id="img-hero_1"
+              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
+            />
+            <div class="hero-overlay">
+              <div class="hero-eyebrow" id="eyebrow-hero_1">Denpasar, Bali</div>
+              <h1 class="hero-title" id="title-hero_1">Lawar &amp; Soto Sapi Wr Rahayu</h1>
+              <p class="hero-body" id="body-hero_1">
+                Racikan rumahan dengan rekam jejak lokal di Denpasar, disiapkan hangat untuk menemani waktu makan siang Anda.
+              </p>
             </div>
-          </div>
+          </article>
+
+          <article class="hero-slide" data-slide-key="hero_2">
+            <img
+              id="img-hero_2"
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              alt="Lawar sapi segar dengan bumbu rempah Bali di Wr Rahayu"
+            />
+            <div class="hero-overlay">
+              <div class="hero-eyebrow" id="eyebrow-hero_2">Menu Andalan</div>
+              <h2 class="hero-title" id="title-hero_2">Lawar Sapi Segar Setiap Hari</h2>
+              <p class="hero-body" id="body-hero_2">
+                Perpaduan daging sapi pilihan, sayuran segar, kelapa sangrai, dan base genep khas Bali.
+              </p>
+            </div>
+          </article>
+
+          <article class="hero-slide" data-slide-key="hero_3">
+            <img
+              id="img-hero_3"
+              src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+              alt="Soto sapi kuah gurih hangat di Wr Rahayu Denpasar"
+            />
+            <div class="hero-overlay">
+              <div class="hero-eyebrow" id="eyebrow-hero_3">Hangat &amp; Gurih</div>
+              <h2 class="hero-title" id="title-hero_3">Soto Sapi Berkuah Rempah</h2>
+              <p class="hero-body" id="body-hero_3">
+                Kuah kaldu sapi yang ringan namun kaya rasa rempah, pas dinikmati saat makan siang.
+              </p>
+            </div>
+          </article>
         </div>
 
+        <div class="hero-controls">
+          <div class="hero-dots" id="heroDots" aria-label="Pilih slide"></div>
+          <div class="hero-arrows">
+            <button type="button" class="arrow-btn" id="prevSlide" aria-label="Slide sebelumnya">&#8592;</button>
+            <button type="button" class="arrow-btn" id="nextSlide" aria-label="Slide berikutnya">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
         <div class="hero-cta-bar">
           <p class="hero-subnote">
             Wr Rahayu Lawar &amp; Soto Sapi — Pilihan nyaman untuk makan siang di Denpasar.
@@ -700,8 +698,14 @@
     (function () {
       const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
       const API_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
+      const AUTO_SLIDE_MS = 4500;
 
       let currentSlide = 0;
+      let autoTimer = null;
+      let touchStartX = 0;
+
+      const track = document.getElementById('heroTrack');
+      const frame = document.getElementById('heroFrame');
 
       function getActiveSlides() {
         return Array.from(document.querySelectorAll('.hero-slide:not(.hidden-section)'));
@@ -717,7 +721,10 @@
           dot.type = 'button';
           dot.className = 'hero-dot' + (idx === currentSlide ? ' active' : '');
           dot.setAttribute('aria-label', `Slide ${idx + 1}`);
-          dot.addEventListener('click', () => goToSlide(idx));
+          dot.addEventListener('click', () => {
+            goToSlide(idx);
+            restartAutoSlide();
+          });
           dotsWrap.appendChild(dot);
         });
       }
@@ -727,9 +734,7 @@
         if (slides.length === 0) return;
 
         currentSlide = ((index % slides.length) + slides.length) % slides.length;
-        slides.forEach((slide, idx) => {
-          slide.classList.toggle('active', idx === currentSlide);
-        });
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
 
         const dots = Array.from(document.querySelectorAll('.hero-dot'));
         dots.forEach((dot, idx) => {
@@ -737,8 +742,54 @@
         });
       }
 
-      document.getElementById('prevSlide').addEventListener('click', () => goToSlide(currentSlide - 1));
-      document.getElementById('nextSlide').addEventListener('click', () => goToSlide(currentSlide + 1));
+      function startAutoSlide() {
+        stopAutoSlide();
+        const slides = getActiveSlides();
+        if (slides.length <= 1) return;
+        autoTimer = window.setInterval(() => {
+          goToSlide(currentSlide + 1);
+        }, AUTO_SLIDE_MS);
+      }
+
+      function stopAutoSlide() {
+        if (autoTimer !== null) {
+          window.clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      function restartAutoSlide() {
+        startAutoSlide();
+      }
+
+      document.getElementById('prevSlide').addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
+        restartAutoSlide();
+      });
+
+      document.getElementById('nextSlide').addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+        restartAutoSlide();
+      });
+
+      frame.addEventListener('pointerenter', stopAutoSlide);
+      frame.addEventListener('pointerleave', startAutoSlide);
+
+      frame.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          touchStartX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      frame.addEventListener('touchend', (e) => {
+        if (!e.changedTouches || e.changedTouches.length === 0) return;
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(diffX) > 45) {
+          if (diffX < 0) goToSlide(currentSlide + 1);
+          else goToSlide(currentSlide - 1);
+          restartAutoSlide();
+        }
+      }, { passive: true });
 
       function applySectionRow(row) {
         const key = row.section_key;
@@ -800,6 +851,7 @@
           currentSlide = 0;
           buildDots();
           goToSlide(0);
+          startAutoSlide();
         } catch (_) {
           // Gunakan konten bawaan jika jaringan sedang bermasalah
         }
@@ -807,6 +859,7 @@
 
       buildDots();
       goToSlide(0);
+      startAutoSlide();
       hydrateFromSupabase();
     })();
   </script>
