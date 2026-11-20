@@ -116,7 +116,7 @@
 
     .container {
       max-width: 1080px;
-      margin: 28px auto 0;
+      margin: 24px auto 0;
       padding: 0 20px;
     }
 
@@ -151,19 +151,6 @@
       border-radius: 14px;
       padding: 22px;
       margin-bottom: 20px;
-    }
-
-    .config-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 14px;
-      align-items: end;
-    }
-
-    @media (max-width: 820px) {
-      .config-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     .card-head {
@@ -222,8 +209,7 @@
     }
 
     .field input,
-    .field textarea,
-    .field select {
+    .field textarea {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #cbd8d0;
@@ -235,8 +221,7 @@
     }
 
     .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
+    .field textarea:focus {
       outline: none;
       border-color: var(--green-forest);
     }
@@ -319,9 +304,8 @@
     }
 
     .hint {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--muted);
-      margin-top: 4px;
     }
   </style>
 </head>
@@ -330,7 +314,7 @@
     <div class="topbar-inner">
       <div>
         <div class="brand-title">Admin Wr Rahayu</div>
-        <div class="brand-sub">Kelola Teks &amp; Gambar Otomatis Terkompresi (Denpasar, Bali)</div>
+        <div class="brand-sub">Kelola Konten &amp; Foto Wr Rahayu (Denpasar, Bali)</div>
       </div>
       <div class="top-actions">
         <a href="index.html" class="btn btn-outline" target="_blank" rel="noopener">Lihat index.html</a>
@@ -342,48 +326,18 @@
   <main class="container">
     <div id="statusBanner" class="status-banner" role="status"></div>
 
-    <section class="section-card">
-      <div class="config-grid">
-        <div class="field" style="margin-bottom: 0;">
-          <label for="supabaseKeyInput">Supabase Publishable / Anon Key</label>
-          <input
-            id="supabaseKeyInput"
-            type="password"
-            value="sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok"
-            autocomplete="off"
-          />
-        </div>
-        <div class="field" style="margin-bottom: 0;">
-          <label for="bucketInput">Nama Bucket Storage</label>
-          <input
-            id="bucketInput"
-            type="text"
-            value="wr-rahayu-images"
-          />
-        </div>
-        <div class="field" style="margin-bottom: 0;">
-          <label for="compressPreset">Mode Auto-Compress</label>
-          <select id="compressPreset">
-            <option value="1600|0.82" selected>Seimbang (Max 1600px · 82%)</option>
-            <option value="1280|0.76">Hemat Kuota (Max 1280px · 76%)</option>
-            <option value="1920|0.88">Tajam Tinggi (Max 1920px · 88%)</option>
-          </select>
-        </div>
-      </div>
-      <p class="hint">
-        Catatan keamanan: karena berjalan langsung di *browser*, jika mengaktifkan izin tulis/unggah untuk <em>role</em> <code>anon</code> di Supabase, aksesnya bersifat terbuka bagi siapa pun yang mengetahui *key* dan URL halaman ini.
-      </p>
-    </section>
-
     <div id="sectionsContainer">
-      <p class="hint">Memuat data dari Supabase...</p>
+      <p class="hint">Memuat konten...</p>
     </div>
   </main>
 
   <script>
     (function () {
       const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
-      const DEFAULT_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
+      const API_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
+      const STORAGE_BUCKET = 'wr-rahayu-images';
+      const MAX_DIM = 1600;
+      const JPEG_QUALITY = 0.82;
 
       const SECTION_LABELS = {
         hero_1: 'Galeri Utama — Slide 1',
@@ -395,28 +349,9 @@
         opening_hours: 'Jam Operasional'
       };
 
-      const keyInput = document.getElementById('supabaseKeyInput');
-      const bucketInput = document.getElementById('bucketInput');
-      const presetSelect = document.getElementById('compressPreset');
       const container = document.getElementById('sectionsContainer');
       const banner = document.getElementById('statusBanner');
       const reloadBtn = document.getElementById('reloadBtn');
-
-      function getKey() {
-        return (keyInput.value || DEFAULT_KEY).trim();
-      }
-
-      function getBucket() {
-        return (bucketInput.value || 'wr-rahayu-images').trim();
-      }
-
-      function getCompressConfig() {
-        const [maxDimStr, qualityStr] = (presetSelect.value || '1600|0.82').split('|');
-        return {
-          maxDim: Number(maxDimStr) || 1600,
-          quality: Number(qualityStr) || 0.82
-        };
-      }
 
       function formatBytes(bytes) {
         if (!bytes || bytes <= 0) return '0 KB';
@@ -444,7 +379,7 @@
           .replace(/>/g, '&gt;');
       }
 
-      function compressImageFile(file, maxDim, quality) {
+      function compressImageFile(file) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onerror = () => reject(new Error('Gagal membaca berkas gambar.'));
@@ -453,13 +388,13 @@
             img.onerror = () => reject(new Error('Berkas tidak dikenali sebagai gambar valid.'));
             img.onload = () => {
               let { width, height } = img;
-              if (width > maxDim || height > maxDim) {
+              if (width > MAX_DIM || height > MAX_DIM) {
                 if (width >= height) {
-                  height = Math.round((height * maxDim) / width);
-                  width = maxDim;
+                  height = Math.round((height * MAX_DIM) / width);
+                  width = MAX_DIM;
                 } else {
-                  width = Math.round((width * maxDim) / height);
-                  height = maxDim;
+                  width = Math.round((width * MAX_DIM) / height);
+                  height = MAX_DIM;
                 }
               }
 
@@ -486,7 +421,7 @@
                   });
                 },
                 'image/jpeg',
-                quality
+                JPEG_QUALITY
               );
             };
             img.src = reader.result;
@@ -496,19 +431,6 @@
       }
 
       async function handleImageUpload(sectionKey, file, card, btnEl) {
-        const apiKey = getKey();
-        const bucket = getBucket();
-        const { maxDim, quality } = getCompressConfig();
-
-        if (!apiKey) {
-          showStatus('err', 'Masukkan Publishable / Anon Key Supabase terlebih dahulu.');
-          return;
-        }
-        if (!bucket) {
-          showStatus('err', 'Masukkan nama bucket Supabase Storage terlebih dahulu.');
-          return;
-        }
-
         const originalBtnText = btnEl.textContent;
         btnEl.disabled = true;
         btnEl.textContent = 'Mengompresi...';
@@ -518,7 +440,7 @@
         const thumbBox = card.querySelector('.thumb-box');
 
         try {
-          const compressed = await compressImageFile(file, maxDim, quality);
+          const compressed = await compressImageFile(file);
           btnEl.textContent = 'Mengunggah...';
 
           const cleanBase = (file.name || 'foto')
@@ -529,12 +451,12 @@
           const filePath = `${sectionKey}/${Date.now()}-${cleanBase}.jpg`;
 
           const uploadRes = await fetch(
-            `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodeURIComponent(filePath)}`,
+            `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(STORAGE_BUCKET)}/${encodeURIComponent(filePath)}`,
             {
               method: 'POST',
               headers: {
-                apikey: apiKey,
-                Authorization: `Bearer ${apiKey}`,
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
                 'Content-Type': 'image/jpeg',
                 'x-upsert': 'true'
               },
@@ -544,12 +466,10 @@
 
           if (!uploadRes.ok) {
             const errTxt = await uploadRes.text();
-            throw new Error(
-              `Gagal mengunggah ke bucket "${bucket}" (${uploadRes.status}). Pastikan bucket ada dan policy INSERT Storage aktif. Detail: ${errTxt}`
-            );
+            throw new Error(`Gagal mengunggah foto (${uploadRes.status}): ${errTxt}`);
           }
 
-          const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(bucket)}/${filePath}`;
+          const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(STORAGE_BUCKET)}/${filePath}`;
           urlInput.value = publicUrl;
           thumbBox.innerHTML = `<img src="${escapeAttr(publicUrl)}" alt="Preview" />`;
 
@@ -558,7 +478,7 @@
 
           showStatus(
             'ok',
-            `Foto dikompresi (${infoText}) dan diunggah. Klik "Simpan Perubahan" untuk menyimpan ke halaman.`
+            `Foto dikompresi (${infoText}) dan diunggah. Klik "Simpan Perubahan" untuk menerapkan ke halaman.`
           );
         } catch (err) {
           showStatus('err', err.message || 'Gagal memproses atau mengunggah gambar.');
@@ -570,7 +490,7 @@
 
       function renderCards(rows) {
         if (!Array.isArray(rows) || rows.length === 0) {
-          container.innerHTML = '<div class="section-card"><p>Belum ada baris di tabel <code>wr_rahayu_sections</code>. Jalankan skrip SQL tabelnya terlebih dahulu.</p></div>';
+          container.innerHTML = '<div class="section-card"><p>Belum ada konten yang tersimpan di database.</p></div>';
           return;
         }
 
@@ -611,7 +531,7 @@
                 <div class="thumb-box">${imgPreview}</div>
                 <div>
                   <div class="field" style="margin-bottom: 6px;">
-                    <label>URL Gambar (Supabase Storage / HTTPS)</label>
+                    <label>URL Gambar</label>
                     <input type="url" data-field="image_url" value="${escapeAttr(row.image_url)}" placeholder="https://..." />
                   </div>
                   <div class="upload-bar">
@@ -685,38 +605,31 @@
       }
 
       async function loadSections() {
-        const apiKey = getKey();
-        if (!apiKey) {
-          showStatus('err', 'Masukkan Publishable / Anon Key Supabase terlebih dahulu.');
-          return;
-        }
-
         try {
           const res = await fetch(
             `${SUPABASE_URL}/rest/v1/wr_rahayu_sections?select=*&order=sort_order.asc`,
             {
               headers: {
-                apikey: apiKey,
-                Authorization: `Bearer ${apiKey}`
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`
               }
             }
           );
 
           if (!res.ok) {
             const errText = await res.text();
-            throw new Error(`Gagal memuat data (${res.status}): ${errText}`);
+            throw new Error(`Gagal memuat konten (${res.status}): ${errText}`);
           }
 
           const data = await res.json();
           renderCards(data);
-          showStatus('ok', 'Data bagian halaman berhasil dimuat dari Supabase.');
+          showStatus('ok', 'Konten berhasil dimuat.');
         } catch (err) {
-          showStatus('err', err.message || 'Terjadi kesalahan saat memuat data.');
+          showStatus('err', err.message || 'Terjadi kesalahan saat memuat konten.');
         }
       }
 
       async function saveSection(sectionKey, btnEl) {
-        const apiKey = getKey();
         const card = container.querySelector(`.section-card[data-key="${sectionKey}"]`);
         if (!card) return;
 
@@ -747,8 +660,8 @@
             {
               method: 'PATCH',
               headers: {
-                apikey: apiKey,
-                Authorization: `Bearer ${apiKey}`,
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
                 'Content-Type': 'application/json',
                 Prefer: 'return=representation'
               },
@@ -758,12 +671,10 @@
 
           if (!res.ok) {
             const errText = await res.text();
-            throw new Error(
-              `Gagal menyimpan "${sectionKey}" (${res.status}). Pastikan policy UPDATE aktif di Supabase. Detail: ${errText}`
-            );
+            throw new Error(`Gagal menyimpan "${sectionKey}" (${res.status}): ${errText}`);
           }
 
-          showStatus('ok', `Perubahan untuk "${SECTION_LABELS[sectionKey] || sectionKey}" berhasil disimpan ke Supabase.`);
+          showStatus('ok', `Perubahan "${SECTION_LABELS[sectionKey] || sectionKey}" berhasil disimpan.`);
         } catch (err) {
           showStatus('err', err.message || 'Gagal menyimpan perubahan.');
         } finally {
