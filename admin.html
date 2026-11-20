@@ -336,8 +336,8 @@
       const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
       const API_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
       const STORAGE_BUCKET = 'wr-rahayu-images';
-      const MAX_DIM = 1600;
-      const JPEG_QUALITY = 0.82;
+      const MAX_DIM = 2048;
+      const JPEG_QUALITY = 0.9;
 
       const SECTION_LABELS = {
         hero_1: 'Galeri Utama — Slide 1',
@@ -402,6 +402,8 @@
               canvas.width = width;
               canvas.height = height;
               const ctx = canvas.getContext('2d');
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
               ctx.fillStyle = '#ffffff';
               ctx.fillRect(0, 0, width, height);
               ctx.drawImage(img, 0, 0, width, height);
@@ -478,7 +480,7 @@
 
           showStatus(
             'ok',
-            `Foto dikompresi (${infoText}) dan diunggah. Klik "Simpan Perubahan" untuk menerapkan ke halaman.`
+            `Foto diproses (${infoText}) dan diunggah. Klik "Simpan Perubahan" untuk menerapkan ke halaman.`
           );
         } catch (err) {
           showStatus('err', err.message || 'Gagal memproses atau mengunggah gambar.');
@@ -537,7 +539,7 @@
                   <div class="upload-bar">
                     <input type="file" accept="image/*" class="file-input-hidden" data-upload-file />
                     <button type="button" class="btn btn-outline upload-trigger-btn">Pilih &amp; Kompres Foto</button>
-                    <span class="compress-badge">Auto-compress aktif</span>
+                    <span class="compress-badge">Auto-compress aktif (maks 2048px, Q90)</span>
                   </div>
                   <div class="field" style="margin-top: 10px; margin-bottom: 0;">
                     <label>Teks Alternatif Gambar (Alt SEO)</label>
