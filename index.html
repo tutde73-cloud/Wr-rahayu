@@ -3,7 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wr Rahayu — Lawar &amp; Soto Sapi | Denpasar, Bali</title>
+  <title>Wr Rahayu — Lawar &amp; Soto Sapi di Denpasar, Bali</title>
+  <meta
+    name="description"
+    content="Wr Rahayu Lawar &amp; Soto Sapi di Denpasar, Bali. Nikmati hidangan lawar sapi dan soto sapi hangat dengan ruang makan yang luas untuk santap siang bersama."
+  />
+  <meta
+    name="keywords"
+    content="Wr Rahayu, lawar sapi Denpasar, soto sapi Denpasar, makan siang Denpasar, warung makan luas Bali"
+  />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://tutde73-cloud.github.io/Wr-rahayu/" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:site_name" content="Wr Rahayu Lawar &amp; Soto Sapi" />
+  <meta property="og:title" content="Wr Rahayu — Lawar &amp; Soto Sapi di Denpasar, Bali" />
+  <meta
+    property="og:description"
+    content="Hidangan lawar sapi dan soto sapi pilihan di Denpasar, Bali, dengan area makan luas yang nyaman untuk jam makan siang."
+  />
+  <meta
+    property="og:image"
+    content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80"
+  />
+
+  <!-- Structured Data (JSON-LD) for Local Restaurant SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Wr Rahayu Lawar & Soto Sapi",
+      "description": "Rumah makan lawar sapi dan soto sapi di Denpasar, Bali, dengan ruang makan luas untuk santap siang.",
+      "servesCuisine": ["Balinese", "Indonesian", "Lawar Sapi", "Soto Sapi"],
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Denpasar",
+        "addressRegion": "Bali",
+        "addressCountry": "ID"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "08:00",
+          "closes": "17:00"
+        }
+      ],
+      "image": [
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+      ]
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -50,7 +115,6 @@
       text-decoration: none;
     }
 
-    /* Top Header Bar */
     .topbar {
       position: sticky;
       top: 0;
@@ -109,7 +173,6 @@
       }
     }
 
-    /* Wide Swipeable Hero Gallery */
     .hero-gallery-wrap {
       position: relative;
       width: 100%;
@@ -258,7 +321,6 @@
       background: rgba(20, 51, 38, 0.88);
     }
 
-    /* Quick Action Bar Directly Below Gallery */
     .action-strip {
       background: var(--bg-soft);
       border-bottom: 1px solid var(--border);
@@ -325,15 +387,10 @@
       border-color: var(--green-forest);
     }
 
-    /* Editorial Sections */
     .section {
       max-width: 1180px;
       margin: 0 auto;
       padding: 76px 24px;
-    }
-
-    .section-divider {
-      border-top: 1px solid var(--border);
     }
 
     .section-head {
@@ -362,7 +419,6 @@
       font-size: 0.98rem;
     }
 
-    /* Signature Dishes Grid */
     .dishes-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -421,7 +477,6 @@
       font-size: 0.94rem;
     }
 
-    /* Lunch & Spacious Dining Feature */
     .venue-band {
       background: var(--bg-soft);
       border-top: 1px solid var(--border);
@@ -482,7 +537,6 @@
       color: var(--ink-secondary);
     }
 
-    /* Hours Panel */
     .hours-card {
       background: var(--green-deep);
       color: #ffffff;
@@ -530,7 +584,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    /* Minimal Footer */
     .footer {
       max-width: 1180px;
       margin: 0 auto;
@@ -562,45 +615,49 @@
   </header>
 
   <main id="top">
-    <!-- Wide Swipeable Photo Gallery at Top -->
     <section class="hero-gallery-wrap" aria-label="Galeri Foto Menu Wr Rahayu">
       <div class="hero-track" id="heroTrack">
         <article class="hero-slide">
           <img
+            id="hero-1-img"
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80"
-            alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
+            alt="Hidangan hangat lawar dan soto sapi untuk makan siang di Wr Rahayu Denpasar"
           />
           <div class="hero-scrim"></div>
           <div class="hero-caption">
-            <span class="hero-tag">Denpasar, Bali</span>
-            <h1 class="hero-title">Lawar &amp; Soto Sapi Wr Rahayu</h1>
-            <p class="hero-desc">Racikan rumahan dengan rekam jejak lokal di Denpasar, disiapkan hangat untuk menemani waktu makan siang Anda.</p>
+            <span class="hero-tag" id="hero-1-eyebrow">Denpasar, Bali</span>
+            <h1 class="hero-title" id="hero-1-title">Lawar &amp; Soto Sapi Wr Rahayu</h1>
+            <p class="hero-desc" id="hero-1-body">Racikan rumahan dengan rekam jejak lokal di Denpasar, disiapkan hangat untuk menemani waktu makan siang Anda.</p>
           </div>
         </article>
 
         <article class="hero-slide">
           <img
+            id="hero-2-img"
             src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1600&q=80"
-            alt="Lawar sapi berbumbu rempah khas Bali di Wr Rahayu"
+            alt="Lawar sapi berbumbu rempah khas Bali di Wr Rahayu Denpasar"
+            loading="lazy"
           />
           <div class="hero-scrim"></div>
           <div class="hero-caption">
-            <span class="hero-tag">Menu Utama</span>
-            <h2 class="hero-title">Lawar Sapi Pilihan</h2>
-            <p class="hero-desc">Perpaduan bumbu genep yang harum, tekstur segar, dan cita rasa gurih seimbang untuk santap siang penuh selera.</p>
+            <span class="hero-tag" id="hero-2-eyebrow">Menu Utama</span>
+            <h2 class="hero-title" id="hero-2-title">Lawar Sapi Pilihan</h2>
+            <p class="hero-desc" id="hero-2-body">Perpaduan bumbu genep yang harum, tekstur segar, dan cita rasa gurih seimbang untuk santap siang penuh selera.</p>
           </div>
         </article>
 
         <article class="hero-slide">
           <img
+            id="hero-3-img"
             src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1600&q=80"
-            alt="Semangkuk soto sapi berkuah gurih hangat di Wr Rahayu"
+            alt="Semangkuk soto sapi berkuah gurih hangat di Wr Rahayu Denpasar"
+            loading="lazy"
           />
           <div class="hero-scrim"></div>
           <div class="hero-caption">
-            <span class="hero-tag">Kuah Hangat</span>
-            <h2 class="hero-title">Soto Sapi Berempah</h2>
-            <p class="hero-desc">Kaldu sapi yang menenangkan dengan potongan daging empuk dan aroma rempah alami yang pas disantap di siang hari.</p>
+            <span class="hero-tag" id="hero-3-eyebrow">Kuah Hangat</span>
+            <h2 class="hero-title" id="hero-3-title">Soto Sapi Berempah</h2>
+            <p class="hero-desc" id="hero-3-body">Kaldu sapi yang menenangkan dengan potongan daging empuk dan aroma rempah alami yang pas disantap di siang hari.</p>
           </div>
         </article>
       </div>
@@ -618,7 +675,6 @@
       </div>
     </section>
 
-    <!-- Quick Action Buttons Directly Below Gallery -->
     <div class="action-strip">
       <div class="action-strip-inner">
         <p class="action-intro">
@@ -632,7 +688,6 @@
       </div>
     </div>
 
-    <!-- Signature Menu Section -->
     <section id="menu" class="section">
       <div class="section-head">
         <p class="eyebrow">Menu Andalan</p>
@@ -644,57 +699,62 @@
         <article class="dish-card">
           <div class="dish-media">
             <img
+              id="lawar-img"
               src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80"
-              alt="Lawar Sapi Wr Rahayu"
+              alt="Lawar Sapi Wr Rahayu Denpasar"
+              loading="lazy"
             />
           </div>
           <div class="dish-body">
-            <p class="dish-label">Spesialisasi Warung</p>
-            <h3 class="dish-title">Lawar Sapi</h3>
-            <p class="dish-copy">Diracik dengan racikan bumbu Bali yang kaya aroma, berpadu bersama irisan bahan segar yang memberi sensasi gurih dan nikmat di setiap suapan.</p>
+            <p class="dish-label" id="lawar-eyebrow">Spesialisasi Warung</p>
+            <h3 class="dish-title" id="lawar-title">Lawar Sapi</h3>
+            <p class="dish-copy" id="lawar-body">Diracik dengan racikan bumbu Bali yang kaya aroma, berpadu bersama irisan bahan segar yang memberi sensasi gurih dan nikmat di setiap suapan.</p>
           </div>
         </article>
 
         <article class="dish-card">
           <div class="dish-media">
             <img
+              id="soto-img"
               src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80"
-              alt="Soto Sapi Wr Rahayu"
+              alt="Soto Sapi Wr Rahayu Denpasar"
+              loading="lazy"
             />
           </div>
           <div class="dish-body">
-            <p class="dish-label">Hangat &amp; Menenangkan</p>
-            <h3 class="dish-title">Soto Sapi</h3>
-            <p class="dish-copy">Disajikan hangat dengan kuah kaldu gurih berempah serta isian daging sapi yang lembut, cocok untuk mengisi energi saat jam makan siang.</p>
+            <p class="dish-label" id="soto-eyebrow">Hangat &amp; Menenangkan</p>
+            <h3 class="dish-title" id="soto-title">Soto Sapi</h3>
+            <p class="dish-copy" id="soto-body">Disajikan hangat dengan kuah kaldu gurih berempah serta isian daging sapi yang lembut, cocok untuk mengisi energi saat jam makan siang.</p>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- Lunch Crowd & Spacious Dining Section -->
     <section id="suasana" class="venue-band">
       <div class="section">
         <div class="venue-grid">
           <div class="venue-photo">
             <img
+              id="venue-img"
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
-              alt="Suasana ruang makan yang luas dan nyaman di Denpasar"
+              alt="Suasana ruang makan yang luas dan nyaman di Wr Rahayu Denpasar"
+              loading="lazy"
             />
           </div>
           <div>
-            <p class="eyebrow">Denpasar, Bali</p>
-            <h2 class="section-title">Ruang Makan Luas untuk Jam Makan Siang</h2>
-            <p class="section-lead">
+            <p class="eyebrow" id="venue-eyebrow">Denpasar, Bali</p>
+            <h2 class="section-title" id="venue-title">Ruang Makan Luas untuk Jam Makan Siang</h2>
+            <p class="section-lead" id="venue-body">
               Dikenal oleh pelanggan lokal di Denpasar, Wr Rahayu menghadirkan area makan yang lega sehingga nyaman disinggahi baik sendiri, bersama rekan kerja, maupun rombongan keluarga saat waktu makan siang tiba.
             </p>
             <div class="venue-notes">
               <div class="note-item">
-                <h3>Kapasitas Lega</h3>
-                <p>Tata ruang yang lapang memudahkan rombongan makan siang duduk dengan leluasa.</p>
+                <h3 id="venue-extra-1-label">Kapasitas Lega</h3>
+                <p id="venue-extra-1-value">Tata ruang yang lapang memudahkan rombongan makan siang duduk dengan leluasa.</p>
               </div>
               <div class="note-item">
-                <h3>Reputasi Lokal</h3>
-                <p>Dipercaya warga Denpasar sebagai tujuan santap siang khas lawar dan soto sapi.</p>
+                <h3 id="venue-extra-2-label">Reputasi Lokal</h3>
+                <p id="venue-extra-2-value">Dipercaya warga Denpasar sebagai tujuan santap siang khas lawar dan soto sapi.</p>
               </div>
             </div>
           </div>
@@ -702,22 +762,21 @@
       </div>
     </section>
 
-    <!-- Operating Hours Section -->
     <section id="jam-buka" class="section">
       <div class="hours-card">
         <div>
-          <p class="eyebrow">Jam Operasional</p>
-          <h2 class="section-title">Siap Menyambut Santap Siang Anda</h2>
-          <p>Datang lebih awal menjelang puncak makan siang di Denpasar agar Anda bisa memilih area duduk favorit dengan lebih santai.</p>
+          <p class="eyebrow" id="hours-eyebrow">Jam Operasional</p>
+          <h2 class="section-title" id="hours-title">Siap Menyambut Santap Siang Anda</h2>
+          <p id="hours-body">Datang lebih awal menjelang puncak makan siang di Denpasar agar Anda bisa memilih area duduk favorit dengan lebih santai.</p>
         </div>
         <div class="hours-box">
           <div class="hours-row">
-            <span>Setiap Hari</span>
-            <strong>08.00 &ndash; 17.00 WITA</strong>
+            <span id="hours-extra-1-label">Setiap Hari</span>
+            <strong id="hours-extra-1-value">08.00 &ndash; 17.00 WITA</strong>
           </div>
           <div class="hours-row">
-            <span>Puncak Makan Siang</span>
-            <strong>11.30 &ndash; 14.00 WITA</strong>
+            <span id="hours-extra-2-label">Puncak Makan Siang</span>
+            <strong id="hours-extra-2-value">11.30 &ndash; 14.00 WITA</strong>
           </div>
         </div>
       </div>
@@ -731,6 +790,9 @@
 
   <script>
     (function () {
+      const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
+
       const track = document.getElementById('heroTrack');
       const dots = Array.from(document.querySelectorAll('.dot-btn'));
       const prevBtn = document.getElementById('prevSlide');
@@ -770,7 +832,6 @@
         }
       }, { passive: true });
 
-      // Mouse drag support for desktop swipe
       let isDown = false;
       let startX = 0;
       let scrollLeftStart = 0;
@@ -792,6 +853,90 @@
         const walk = (x - startX) * 1.2;
         track.scrollLeft = scrollLeftStart - walk;
       });
+
+      function setText(id, val) {
+        const el = document.getElementById(id);
+        if (el && typeof val === 'string' && val.trim() !== '') {
+          el.textContent = val;
+        }
+      }
+
+      function setImg(id, src, alt) {
+        const el = document.getElementById(id);
+        if (el && typeof src === 'string' && src.trim() !== '') {
+          el.src = src;
+        }
+        if (el && typeof alt === 'string' && alt.trim() !== '') {
+          el.alt = alt;
+        }
+      }
+
+      function applySupabaseRows(rows) {
+        if (!Array.isArray(rows)) return;
+        const map = new Map(rows.map((r) => [r.section_key, r]));
+
+        ['hero_1', 'hero_2', 'hero_3'].forEach((key, idx) => {
+          const item = map.get(key);
+          const n = idx + 1;
+          if (!item) return;
+          setText(`hero-${n}-eyebrow`, item.eyebrow);
+          setText(`hero-${n}-title`, item.title);
+          setText(`hero-${n}-body`, item.body);
+          setImg(`hero-${n}-img`, item.image_url, item.image_alt);
+        });
+
+        const lawar = map.get('menu_lawar');
+        if (lawar) {
+          setText('lawar-eyebrow', lawar.eyebrow);
+          setText('lawar-title', lawar.title);
+          setText('lawar-body', lawar.body);
+          setImg('lawar-img', lawar.image_url, lawar.image_alt);
+        }
+
+        const soto = map.get('menu_soto');
+        if (soto) {
+          setText('soto-eyebrow', soto.eyebrow);
+          setText('soto-title', soto.title);
+          setText('soto-body', soto.body);
+          setImg('soto-img', soto.image_url, soto.image_alt);
+        }
+
+        const venue = map.get('venue_dining');
+        if (venue) {
+          setText('venue-eyebrow', venue.eyebrow);
+          setText('venue-title', venue.title);
+          setText('venue-body', venue.body);
+          setImg('venue-img', venue.image_url, venue.image_alt);
+          setText('venue-extra-1-label', venue.extra_1_label);
+          setText('venue-extra-1-value', venue.extra_1_value);
+          setText('venue-extra-2-label', venue.extra_2_label);
+          setText('venue-extra-2-value', venue.extra_2_value);
+        }
+
+        const hours = map.get('opening_hours');
+        if (hours) {
+          setText('hours-eyebrow', hours.eyebrow);
+          setText('hours-title', hours.title);
+          setText('hours-body', hours.body);
+          setText('hours-extra-1-label', hours.extra_1_label);
+          setText('hours-extra-1-value', hours.extra_1_value);
+          setText('hours-extra-2-label', hours.extra_2_label);
+          setText('hours-extra-2-value', hours.extra_2_value);
+        }
+      }
+
+      if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+        const endpoint = `${SUPABASE_URL}/rest/v1/wr_rahayu_sections?select=*&is_active=eq.true&order=sort_order.asc`;
+        fetch(endpoint, {
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => applySupabaseRows(data))
+          .catch(() => {});
+      }
     })();
   </script>
 </body>
