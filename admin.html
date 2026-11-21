@@ -145,6 +145,29 @@
       border-color: #f5c2c2;
     }
 
+    .gallery-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+
+    .gallery-panel-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .gallery-panel-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 3px;
+    }
+
     .section-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -326,6 +349,23 @@
   <main class="container">
     <div id="statusBanner" class="status-banner" role="status"></div>
 
+    <!-- Panel Upload Foto Galeri ke index.html -->
+    <section class="gallery-panel" aria-label="Upload Foto Galeri">
+      <div class="gallery-panel-top">
+        <div>
+          <span class="card-key">Galeri Foto (#galeri)</span>
+          <h2 class="gallery-panel-title">Tambah Foto ke Galeri Web</h2>
+          <p class="hint">
+            Foto otomatis dikompresi (maks 2048px, Q90), diunggah ke folder <code>gallery/</code>, dan disimpan ke database agar muncul di <code>index.html</code>.
+          </p>
+        </div>
+        <div>
+          <input type="file" accept="image/*" multiple class="file-input-hidden" id="galleryBatchInput" />
+          <button type="button" class="btn btn-primary" id="galleryBatchBtn">+ Upload Foto Galeri</button>
+        </div>
+      </div>
+    </section>
+
     <div id="sectionsContainer">
       <p class="hint">Memuat konten...</p>
     </div>
@@ -345,13 +385,26 @@
         hero_3: 'Galeri Utama — Slide 3',
         menu_lawar: 'Menu Andalan — Lawar Sapi',
         menu_soto: 'Menu Andalan — Soto Sapi',
-        venue_dining: 'Suasana Makan Siang & Ruang Makan Luas',
+        venue_dining: 'Lokasi & Pemesanan',
         opening_hours: 'Jam Operasional'
       };
+
+      let latestRows = [];
 
       const container = document.getElementById('sectionsContainer');
       const banner = document.getElementById('statusBanner');
       const reloadBtn = document.getElementById('reloadBtn');
+      const galleryBatchInput = document.getElementById('galleryBatchInput');
+      const galleryBatchBtn = document.getElementById('galleryBatchBtn');
+
+      function getSectionLabel(key) {
+        if (SECTION_LABELS[key]) return SECTION_LABELS[key];
+        if (String(key || '').startsWith('gallery_')) {
+          const num = String(key).replace('gallery_', '');
+          return `Galeri Foto — Item ${num}`;
+        }
+        return key;
+      }
 
       function formatBytes(bytes) {
         if (!bytes || bytes <= 0) return '0 KB';
@@ -432,6 +485,132 @@
         });
       }
 
+      async function uploadCompressedToStorage(folderKey, fileName, compressed) {
+        const cleanBase = (fileName || 'foto')
+          .replace(/\.[^/.]+$/, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9-_]+/g, '-')
+          .replace(/^-+|-+$/g, '') || 'foto';
+        const filePath = `${folderKey}/${Date.now()}-${cleanBase}.jpg`;
+
+        const uploadRes = await fetch(
+          `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(STORAGE_BUCKET)}/${encodeURIComponent(filePath)}`,
+          {
+            method: 'POST',
+            headers: {
+              apikey: API_KEY,
+              Authorization: `Bearer ${API_KEY}`,
+              'Content-Type': 'image/jpeg',
+              'x-upsert': 'true'
+            },
+            body: compressed.blob
+          }
+        );
+
+        if (!uploadRes.ok) {
+          const errTxt = await uploadRes.text();
+          throw new Error(`Gagal mengunggah foto (${uploadRes.status}): ${errTxt}`);
+        }
+
+        return `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(STORAGE_BUCKET)}/${filePath}`;
+      }
+
+      function getNextGalleryKeyAndOrder() {
+        const galleryRows = latestRows.filter((r) =>
+          String(r.section_key || '').startsWith('gallery_')
+        );
+        let maxNum = 0;
+        galleryRows.forEach((r) => {
+          const match = String(r.section_key || '').match(/^gallery_(\d+)$/);
+          if (match) {
+            const n = parseInt(match[1], 10);
+            if (n > maxNum) maxNum = n;
+          }
+        });
+
+        let maxSort = 20;
+        latestRows.forEach((r) => {
+          const s = Number(r.sort_order);
+          if (!Number.isNaN(s) && s > maxSort) maxSort = s;
+        });
+
+        return {
+          nextKey: `gallery_${maxNum + 1}`,
+          nextSort: maxSort + 1
+        };
+      }
+
+      async function handleBatchGalleryUpload(files) {
+        if (!Array.isArray(files) || files.length === 0) return;
+
+        galleryBatchBtn.disabled = true;
+        const originalText = galleryBatchBtn.textContent;
+        galleryBatchBtn.textContent = 'Mengunggah...';
+
+        let addedCount = 0;
+
+        try {
+          for (const file of files) {
+            const compressed = await compressImageFile(file);
+            const { nextKey, nextSort } = getNextGalleryKeyAndOrder();
+            const publicUrl = await uploadCompressedToStorage('gallery', file.name, compressed);
+
+            const cleanTitle = (file.name || 'Foto Galeri')
+              .replace(/\.[^/.]+$/, '')
+              .replace(/[-_]+/g, ' ')
+              .trim() || 'Foto Galeri Wr Rahayu';
+
+            const insertPayload = {
+              section_key: nextKey,
+              sort_order: nextSort,
+              eyebrow: 'Galeri Foto',
+              title: cleanTitle,
+              body: 'Foto hidangan dan suasana sajian Wr Rahayu di Denpasar.',
+              image_url: publicUrl,
+              image_alt: `${cleanTitle} di Wr Rahayu Lawar & Soto Sapi Denpasar`,
+              is_active: true,
+              updated_at: new Date().toISOString()
+            };
+
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/wr_rahayu_sections`, {
+              method: 'POST',
+              headers: {
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
+                'Content-Type': 'application/json',
+                Prefer: 'return=representation'
+              },
+              body: JSON.stringify(insertPayload)
+            });
+
+            if (!res.ok) {
+              const errTxt = await res.text();
+              throw new Error(`Gagal menyimpan ${nextKey} ke database (${res.status}): ${errTxt}`);
+            }
+
+            const insertedRows = await res.json();
+            if (Array.isArray(insertedRows) && insertedRows.length > 0) {
+              latestRows.push(insertedRows[0]);
+            } else {
+              latestRows.push(insertPayload);
+            }
+            addedCount += 1;
+          }
+
+          renderCards(latestRows);
+          showStatus(
+            'ok',
+            `${addedCount} foto galeri berhasil diunggah dan ditambahkan ke index.html.`
+          );
+        } catch (err) {
+          if (addedCount > 0) renderCards(latestRows);
+          showStatus('err', err.message || 'Gagal mengunggah foto galeri.');
+        } finally {
+          galleryBatchBtn.disabled = false;
+          galleryBatchBtn.textContent = originalText;
+        }
+      }
+
       async function handleImageUpload(sectionKey, file, card, btnEl) {
         const originalBtnText = btnEl.textContent;
         btnEl.disabled = true;
@@ -445,33 +624,9 @@
           const compressed = await compressImageFile(file);
           btnEl.textContent = 'Mengunggah...';
 
-          const cleanBase = (file.name || 'foto')
-            .replace(/\.[^/.]+$/, '')
-            .toLowerCase()
-            .replace(/[^a-z0-9-_]+/g, '-')
-            .replace(/^-+|-+$/g, '') || 'foto';
-          const filePath = `${sectionKey}/${Date.now()}-${cleanBase}.jpg`;
+          const folderKey = String(sectionKey || '').startsWith('gallery_') ? 'gallery' : sectionKey;
+          const publicUrl = await uploadCompressedToStorage(folderKey, file.name, compressed);
 
-          const uploadRes = await fetch(
-            `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(STORAGE_BUCKET)}/${encodeURIComponent(filePath)}`,
-            {
-              method: 'POST',
-              headers: {
-                apikey: API_KEY,
-                Authorization: `Bearer ${API_KEY}`,
-                'Content-Type': 'image/jpeg',
-                'x-upsert': 'true'
-              },
-              body: compressed.blob
-            }
-          );
-
-          if (!uploadRes.ok) {
-            const errTxt = await uploadRes.text();
-            throw new Error(`Gagal mengunggah foto (${uploadRes.status}): ${errTxt}`);
-          }
-
-          const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(STORAGE_BUCKET)}/${filePath}`;
           urlInput.value = publicUrl;
           thumbBox.innerHTML = `<img src="${escapeAttr(publicUrl)}" alt="Preview" />`;
 
@@ -498,10 +653,34 @@
 
         container.innerHTML = rows.map((row) => {
           const k = row.section_key;
-          const label = SECTION_LABELS[k] || k;
+          const label = getSectionLabel(k);
+          const isGalleryItem = String(k || '').startsWith('gallery_');
           const imgPreview = row.image_url
             ? `<img src="${escapeAttr(row.image_url)}" alt="${escapeAttr(row.image_alt || label)}" />`
             : '<span>Tanpa gambar</span>';
+
+          const extraFieldsHtml = isGalleryItem
+            ? ''
+            : `
+              <div class="grid-2">
+                <div class="field">
+                  <label>Label Tambahan 1 (Ruang / Jam 1)</label>
+                  <input type="text" data-field="extra_1_label" value="${escapeAttr(row.extra_1_label)}" />
+                </div>
+                <div class="field">
+                  <label>Isi / Waktu Tambahan 1</label>
+                  <input type="text" data-field="extra_1_value" value="${escapeAttr(row.extra_1_value)}" />
+                </div>
+                <div class="field">
+                  <label>Label Tambahan 2 (Ruang / Jam 2)</label>
+                  <input type="text" data-field="extra_2_label" value="${escapeAttr(row.extra_2_label)}" />
+                </div>
+                <div class="field">
+                  <label>Isi / Waktu Tambahan 2</label>
+                  <input type="text" data-field="extra_2_value" value="${escapeAttr(row.extra_2_value)}" />
+                </div>
+              </div>
+            `;
 
           return `
             <article class="section-card" data-key="${escapeAttr(k)}">
@@ -548,24 +727,7 @@
                 </div>
               </div>
 
-              <div class="grid-2">
-                <div class="field">
-                  <label>Label Tambahan 1 (Ruang / Jam 1)</label>
-                  <input type="text" data-field="extra_1_label" value="${escapeAttr(row.extra_1_label)}" />
-                </div>
-                <div class="field">
-                  <label>Isi / Waktu Tambahan 1</label>
-                  <input type="text" data-field="extra_1_value" value="${escapeAttr(row.extra_1_value)}" />
-                </div>
-                <div class="field">
-                  <label>Label Tambahan 2 (Ruang / Jam 2)</label>
-                  <input type="text" data-field="extra_2_label" value="${escapeAttr(row.extra_2_label)}" />
-                </div>
-                <div class="field">
-                  <label>Isi / Waktu Tambahan 2</label>
-                  <input type="text" data-field="extra_2_value" value="${escapeAttr(row.extra_2_value)}" />
-                </div>
-              </div>
+              ${extraFieldsHtml}
 
               <div class="check-row">
                 <label class="check-label">
@@ -624,7 +786,8 @@
           }
 
           const data = await res.json();
-          renderCards(data);
+          latestRows = Array.isArray(data) ? data : [];
+          renderCards(latestRows);
           showStatus('ok', 'Konten berhasil dimuat.');
         } catch (err) {
           showStatus('err', err.message || 'Terjadi kesalahan saat memuat konten.');
@@ -635,7 +798,10 @@
         const card = container.querySelector(`.section-card[data-key="${sectionKey}"]`);
         if (!card) return;
 
-        const val = (f) => card.querySelector(`[data-field="${f}"]`).value;
+        const val = (f) => {
+          const el = card.querySelector(`[data-field="${f}"]`);
+          return el ? el.value : '';
+        };
         const checked = card.querySelector('[data-field="is_active"]').checked;
 
         const payload = {
@@ -644,13 +810,16 @@
           body: val('body'),
           image_url: val('image_url'),
           image_alt: val('image_alt'),
-          extra_1_label: val('extra_1_label'),
-          extra_1_value: val('extra_1_value'),
-          extra_2_label: val('extra_2_label'),
-          extra_2_value: val('extra_2_value'),
           is_active: checked,
           updated_at: new Date().toISOString()
         };
+
+        if (!String(sectionKey || '').startsWith('gallery_')) {
+          payload.extra_1_label = val('extra_1_label');
+          payload.extra_1_value = val('extra_1_value');
+          payload.extra_2_label = val('extra_2_label');
+          payload.extra_2_value = val('extra_2_value');
+        }
 
         const originalLabel = btnEl.textContent;
         btnEl.disabled = true;
@@ -676,7 +845,11 @@
             throw new Error(`Gagal menyimpan "${sectionKey}" (${res.status}): ${errText}`);
           }
 
-          showStatus('ok', `Perubahan "${SECTION_LABELS[sectionKey] || sectionKey}" berhasil disimpan.`);
+          latestRows = latestRows.map((item) =>
+            item.section_key === sectionKey ? { ...item, ...payload } : item
+          );
+
+          showStatus('ok', `Perubahan "${getSectionLabel(sectionKey)}" berhasil disimpan.`);
         } catch (err) {
           showStatus('err', err.message || 'Gagal menyimpan perubahan.');
         } finally {
@@ -684,6 +857,15 @@
           btnEl.textContent = originalLabel;
         }
       }
+
+      galleryBatchBtn.addEventListener('click', () => galleryBatchInput.click());
+      galleryBatchInput.addEventListener('change', () => {
+        const files = Array.from(galleryBatchInput.files || []);
+        if (files.length > 0) {
+          handleBatchGalleryUpload(files);
+          galleryBatchInput.value = '';
+        }
+      });
 
       reloadBtn.addEventListener('click', loadSections);
       loadSections();
