@@ -892,7 +892,8 @@
     (function () {
       const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
       const API_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
-      const CACHE_KEY = 'wr_rahayu_sections_cache_v1';
+      const OLD_CACHE_KEY = 'wr_rahayu_sections_cache_v1';
+      const CACHE_KEY = 'wr_rahayu_sections_cache_v2';
       const AUTO_SLIDE_MS = 4500;
 
       let currentSlide = 0;
@@ -993,7 +994,10 @@
           low.includes('ruang makan luas') ||
           low.includes('area makan yang lega') ||
           low.includes('kapasitas lega') ||
-          low.includes('puncak makan siang')
+          low.includes('puncak makan siang') ||
+          low.includes('setiap hari') ||
+          low.includes('11.30') ||
+          low.includes('08.00')
         );
       }
 
@@ -1012,12 +1016,19 @@
         setText(`title-${key}`, row.title);
         setText(`body-${key}`, row.body);
 
-        if (key !== 'venue_dining') {
+        if (key !== 'venue_dining' && key !== 'opening_hours') {
+          setText(`extra1-label-${key}`, row.extra_1_label);
           setText(`extra1-val-${key}`, row.extra_1_value);
+          setText(`extra2-label-${key}`, row.extra_2_label);
+          setText(`extra2-val-${key}`, row.extra_2_value);
         }
-        setText(`extra1-label-${key}`, row.extra_1_label);
-        setText(`extra2-label-${key}`, row.extra_2_label);
-        setText(`extra2-val-${key}`, row.extra_2_value);
+
+        if (key === 'opening_hours') {
+          document.getElementById('extra1-label-opening_hours').textContent = 'Senin – Sabtu';
+          document.getElementById('extra1-val-opening_hours').textContent = '10.00 – 17.00 WITA';
+          document.getElementById('extra2-label-opening_hours').textContent = 'Minggu';
+          document.getElementById('extra2-val-opening_hours').textContent = 'Tutup';
+        }
 
         const imgEl = document.getElementById(`img-${key}`);
         if (imgEl) {
@@ -1055,6 +1066,7 @@
 
       function hydrateFromCache() {
         try {
+          window.localStorage.removeItem(OLD_CACHE_KEY);
           const raw = window.localStorage.getItem(CACHE_KEY);
           if (!raw) return;
           const parsed = JSON.parse(raw);
