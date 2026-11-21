@@ -629,8 +629,8 @@
           <article class="hero-slide" data-slide-key="hero_1">
             <img
               id="img-hero_1"
-              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
-              alt="Hidangan khas Bali di Wr Rahayu Denpasar"
+              src="https://vbilpcnjqjbemgahqisz.supabase.co/storage/v1/object/public/wr-rahayu-images/hero_1/1795216949510-1000067852.jpg"
+              alt="Hidangan hangat khas Bali untuk makan siang di Wr Rahayu Denpasar"
             />
             <div class="hero-overlay">
               <div class="hero-eyebrow" id="eyebrow-hero_1">Denpasar, Bali</div>
@@ -644,8 +644,8 @@
           <article class="hero-slide" data-slide-key="hero_2">
             <img
               id="img-hero_2"
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
-              alt="Lawar sapi segar dengan bumbu rempah Bali di Wr Rahayu"
+              src="https://vbilpcnjqjbemgahqisz.supabase.co/storage/v1/object/public/wr-rahayu-images/hero_2/1795217130316-img_3171.jpg"
+              alt="Lawar sapi berbumbu rempah khas Bali di Wr Rahayu"
             />
             <div class="hero-overlay">
               <div class="hero-eyebrow" id="eyebrow-hero_2">Menu Andalan</div>
@@ -659,8 +659,8 @@
           <article class="hero-slide" data-slide-key="hero_3">
             <img
               id="img-hero_3"
-              src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1600&amp;q=85"
-              alt="Soto sapi kuah gurih hangat di Wr Rahayu Denpasar"
+              src="https://vbilpcnjqjbemgahqisz.supabase.co/storage/v1/object/public/wr-rahayu-images/hero_3/1795217885796-img_3154.jpg"
+              alt="Sepiring nasi campur ayam dengan sate lilit, sayur gonda, dan sambal di Wr Rahayu Denpasar"
             />
             <div class="hero-overlay">
               <div class="hero-eyebrow" id="eyebrow-hero_3">Hangat &amp; Gurih</div>
@@ -741,8 +741,8 @@
             <div class="menu-photo">
               <img
                 id="img-menu_lawar"
-                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
-                alt="Lawar sapi khas Bali di Wr Rahayu Denpasar"
+                src="https://vbilpcnjqjbemgahqisz.supabase.co/storage/v1/object/public/wr-rahayu-images/menu_lawar/1795218044779-1000067852.jpg"
+                alt="Lawar Sapi Wr Rahayu"
               />
             </div>
             <div class="menu-body">
@@ -758,8 +758,8 @@
             <div class="menu-photo">
               <img
                 id="img-menu_soto"
-                src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
-                alt="Soto sapi hangat di Wr Rahayu Denpasar"
+                src="https://vbilpcnjqjbemgahqisz.supabase.co/storage/v1/object/public/wr-rahayu-images/menu_soto/1795218343505-1000067854.jpg"
+                alt="Nasi campur sapi dengan lauk daging sapi, lawar sapi, dan soto sapi hangat di Wr Rahayu Denpasar"
               />
             </div>
             <div class="menu-body">
@@ -892,6 +892,7 @@
     (function () {
       const SUPABASE_URL = 'https://vbilpcnjqjbemgahqisz.supabase.co';
       const API_KEY = 'sb_publishable_xR8E37P1RueDetxa9cGOhg_iD4lV_ok';
+      const CACHE_KEY = 'wr_rahayu_sections_cache_v1';
       const AUTO_SLIDE_MS = 4500;
 
       let currentSlide = 0;
@@ -985,12 +986,24 @@
         }
       }, { passive: true });
 
+      function isBlockedLegacyCopy(val) {
+        if (typeof val !== 'string') return false;
+        const low = val.toLowerCase();
+        return (
+          low.includes('ruang makan luas') ||
+          low.includes('area makan yang lega') ||
+          low.includes('kapasitas lega') ||
+          low.includes('puncak makan siang')
+        );
+      }
+
       function applySectionRow(row) {
         const key = row.section_key;
         if (!key) return;
 
         const setText = (id, val) => {
-          if (typeof val !== 'string') return;
+          if (typeof val !== 'string' || !val.trim()) return;
+          if (isBlockedLegacyCopy(val)) return;
           const el = document.getElementById(id);
           if (el) el.textContent = val;
         };
@@ -999,7 +1012,6 @@
         setText(`title-${key}`, row.title);
         setText(`body-${key}`, row.body);
 
-        // Pertahankan tombol order online food di extra1-val-venue_dining
         if (key !== 'venue_dining') {
           setText(`extra1-val-${key}`, row.extra_1_value);
         }
@@ -1010,7 +1022,10 @@
         const imgEl = document.getElementById(`img-${key}`);
         if (imgEl) {
           if (row.image_url && row.image_url.trim()) {
-            imgEl.src = row.image_url.trim();
+            const cleanUrl = row.image_url.trim();
+            if (imgEl.getAttribute('src') !== cleanUrl) {
+              imgEl.src = cleanUrl;
+            }
           }
           if (typeof row.image_alt === 'string' && row.image_alt.trim()) {
             imgEl.alt = row.image_alt.trim();
@@ -1026,6 +1041,28 @@
         const cardEl = document.getElementById(`card-${key}`);
         if (cardEl && key !== 'venue_dining') {
           cardEl.classList.toggle('hidden-section', !isActive);
+        }
+      }
+
+      function renderRows(rows) {
+        if (!Array.isArray(rows) || rows.length === 0) return;
+        rows.forEach(applySectionRow);
+        currentSlide = 0;
+        buildDots();
+        goToSlide(0);
+        startAutoSlide();
+      }
+
+      function hydrateFromCache() {
+        try {
+          const raw = window.localStorage.getItem(CACHE_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            renderRows(parsed);
+          }
+        } catch (_) {
+          // Abaikan jika penyimpanan lokal tidak tersedia
         }
       }
 
@@ -1045,16 +1082,19 @@
           const rows = await res.json();
           if (!Array.isArray(rows) || rows.length === 0) return;
 
-          rows.forEach(applySectionRow);
-          currentSlide = 0;
-          buildDots();
-          goToSlide(0);
-          startAutoSlide();
+          try {
+            window.localStorage.setItem(CACHE_KEY, JSON.stringify(rows));
+          } catch (_) {
+            // Abaikan jika kuota penyimpanan penuh
+          }
+
+          renderRows(rows);
         } catch (_) {
-          // Gunakan konten bawaan jika jaringan sedang bermasalah
+          // Gunakan data cache atau bawaan jika jaringan sedang bermasalah
         }
       }
 
+      hydrateFromCache();
       buildDots();
       goToSlide(0);
       startAutoSlide();
