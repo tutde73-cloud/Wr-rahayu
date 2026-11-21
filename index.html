@@ -41,7 +41,9 @@
       "servesCuisine": ["Indonesian", "Balinese", "Lawar Sapi", "Soto Sapi"],
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Jl. Sedap Malam No.105, Kesiman, Kec. Denpasar Tim.",
         "addressLocality": "Denpasar",
+        "postalCode": "80235",
         "addressRegion": "Bali",
         "addressCountry": "ID"
       }
@@ -367,7 +369,8 @@
     .order-pill {
       display: inline-flex;
       align-items: center;
-      padding: 8px 16px;
+      gap: 7px;
+      padding: 8px 14px;
       border-radius: 999px;
       font-size: 0.84rem;
       font-weight: 600;
@@ -381,6 +384,12 @@
       background: var(--green-forest);
       color: #ffffff;
       border-color: var(--green-forest);
+    }
+
+    .order-pill svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
     }
 
     /* Sections */
@@ -687,9 +696,30 @@
         <div class="order-strip" aria-label="Pesan Online Food">
           <span class="order-label">Pesan Online Food:</span>
           <div class="order-btns">
-            <a href="#" class="order-pill" target="_blank" rel="noopener">GrabFood</a>
-            <a href="#" class="order-pill" target="_blank" rel="noopener">GoFood</a>
-            <a href="#" class="order-pill" target="_blank" rel="noopener">ShopeeFood</a>
+            <a href="#" class="order-pill" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="11" fill="#00B14F" />
+                <path fill="#FFFFFF" d="M6.5 11.2h11l-1.1 5.6a1.4 1.4 0 0 1-1.4 1.1H9a1.4 1.4 0 0 1-1.4-1.1l-1.1-5.6zm2.6-2.7a2.9 2.9 0 0 1 5.8 0h-1.4a1.5 1.5 0 0 0-3 0H9.1z" />
+              </svg>
+              <span>GrabFood</span>
+            </a>
+            <a href="#" class="order-pill" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="11" fill="#00AA13" />
+                <circle cx="9.2" cy="11.2" r="1.4" fill="#FFFFFF" />
+                <circle cx="14.8" cy="11.2" r="1.4" fill="#FFFFFF" />
+                <path fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" d="M8.5 15.2c1 1.1 2.2 1.6 3.5 1.6s2.5-.5 3.5-1.6" />
+              </svg>
+              <span>GoFood</span>
+            </a>
+            <a href="#" class="order-pill" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="#EE4D2D" />
+                <path fill="none" stroke="#FFFFFF" stroke-width="1.8" d="M9 9.5a3 3 0 0 1 6 0" />
+                <path fill="#FFFFFF" d="M6.5 9.5h11l-.7 8.4a1.4 1.4 0 0 1-1.4 1.3H8.6a1.4 1.4 0 0 1-1.4-1.3l-.7-8.4zm5.5 2.1c-1.5 0-2.4.7-2.4 1.7 0 1 .8 1.5 2.1 1.8 1 .2 1.3.5 1.3.9 0 .5-.5.8-1.2.8-.7 0-1.3-.3-1.7-.7l-.8.9c.5.5 1.4.9 2.5.9 1.6 0 2.5-.8 2.5-1.9 0-1-.8-1.5-2.2-1.8-.9-.2-1.2-.5-1.2-.9 0-.4.4-.7 1.1-.7.6 0 1.1.2 1.5.5l.7-.8c-.5-.4-1.2-.6-2-.6z" />
+              </svg>
+              <span>ShopeeFood</span>
+            </a>
           </div>
         </div>
       </div>
@@ -767,26 +797,47 @@
               ></iframe>
             </div>
             <div class="card-pad">
-              <div class="section-eyebrow" id="eyebrow-venue_dining">Alamat &amp; Pemesanan</div>
+              <div class="section-eyebrow" id="eyebrow-venue_dining">Lokasi &amp; Pemesanan</div>
               <h3 class="section-title" id="title-venue_dining">Warung Rahayu — Nasi Lawar &amp; Soto Sapi</h3>
               <p class="section-lead" id="body-venue_dining">
-                Denpasar, Bali. Tersedia juga layanan pesan antar online untuk memudahkan pemesanan dari rumah atau kantor.
+                Berlokasi di Jl. Sedap Malam No.105, Kesiman, Kec. Denpasar Tim., Kota Denpasar, Bali 80235. Tersedia juga layanan pesan antar online.
               </p>
 
               <div class="info-box-list">
                 <div class="info-box">
-                  <div class="info-box-label" id="extra1-label-venue_dining">Order Online Food</div>
+                  <div class="info-box-label" id="extra1-label-venue_dining">Pesan Online Food</div>
                   <div class="info-box-val" id="extra1-val-venue_dining">
                     <div class="order-btns" style="margin-top: 6px;">
-                      <a href="#" class="order-pill" target="_blank" rel="noopener">GrabFood</a>
-                      <a href="#" class="order-pill" target="_blank" rel="noopener">GoFood</a>
-                      <a href="#" class="order-pill" target="_blank" rel="noopener">ShopeeFood</a>
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="12" r="11" fill="#00B14F" />
+                          <path fill="#FFFFFF" d="M6.5 11.2h11l-1.1 5.6a1.4 1.4 0 0 1-1.4 1.1H9a1.4 1.4 0 0 1-1.4-1.1l-1.1-5.6zm2.6-2.7a2.9 2.9 0 0 1 5.8 0h-1.4a1.5 1.5 0 0 0-3 0H9.1z" />
+                        </svg>
+                        <span>GrabFood</span>
+                      </a>
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="12" r="11" fill="#00AA13" />
+                          <circle cx="9.2" cy="11.2" r="1.4" fill="#FFFFFF" />
+                          <circle cx="14.8" cy="11.2" r="1.4" fill="#FFFFFF" />
+                          <path fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" d="M8.5 15.2c1 1.1 2.2 1.6 3.5 1.6s2.5-.5 3.5-1.6" />
+                        </svg>
+                        <span>GoFood</span>
+                      </a>
+                      <a href="#" class="order-pill" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <rect x="1.5" y="1.5" width="21" height="21" rx="6" fill="#EE4D2D" />
+                          <path fill="none" stroke="#FFFFFF" stroke-width="1.8" d="M9 9.5a3 3 0 0 1 6 0" />
+                          <path fill="#FFFFFF" d="M6.5 9.5h11l-.7 8.4a1.4 1.4 0 0 1-1.4 1.3H8.6a1.4 1.4 0 0 1-1.4-1.3l-.7-8.4zm5.5 2.1c-1.5 0-2.4.7-2.4 1.7 0 1 .8 1.5 2.1 1.8 1 .2 1.3.5 1.3.9 0 .5-.5.8-1.2.8-.7 0-1.3-.3-1.7-.7l-.8.9c.5.5 1.4.9 2.5.9 1.6 0 2.5-.8 2.5-1.9 0-1-.8-1.5-2.2-1.8-.9-.2-1.2-.5-1.2-.9 0-.4.4-.7 1.1-.7.6 0 1.1.2 1.5.5l.7-.8c-.5-.4-1.2-.6-2-.6z" />
+                        </svg>
+                        <span>ShopeeFood</span>
+                      </a>
                     </div>
                   </div>
                 </div>
                 <div class="info-box">
-                  <div class="info-box-label" id="extra2-label-venue_dining">Kawasan</div>
-                  <div class="info-box-val" id="extra2-val-venue_dining">Denpasar, Bali</div>
+                  <div class="info-box-label" id="extra2-label-venue_dining">Alamat</div>
+                  <div class="info-box-val" id="extra2-val-venue_dining">Jl. Sedap Malam No.105, Kesiman, Denpasar Timur, Bali</div>
                 </div>
               </div>
             </div>
